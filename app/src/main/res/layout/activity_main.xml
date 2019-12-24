@@ -24,8 +24,17 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/small_button_shape"
-            android:src="@drawable/ic_about"
+            android:src="@drawable/ic_trophy"
             android:layout_toRightOf="@id/settingsButton"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/highscoresButton"/>
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/small_button_shape"
+            android:src="@drawable/ic_about"
+            android:layout_toRightOf="@id/highscoresButton"
             android:layout_marginLeft="5dp"
             android:id="@+id/aboutButton"/>
 

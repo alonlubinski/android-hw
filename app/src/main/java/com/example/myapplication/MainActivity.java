@@ -13,16 +13,18 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
     private Button startBtn;
-    private ImageButton setBtn, aboutBtn, exitBtn;
+    private ImageButton setBtn, highscoresBtn, aboutBtn, exitBtn;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setUIVisibility();
         setContentView(R.layout.activity_main);
 
         startBtn = findViewById(R.id.startButton);
         setBtn = findViewById(R.id.settingsButton);
+        highscoresBtn = findViewById(R.id.highscoresButton);
         aboutBtn = findViewById(R.id.aboutButton);
         exitBtn = findViewById(R.id.exitButton);
 
@@ -36,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startOptionsActivity();
+            }
+        });
+        highscoresBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startHighscoresActivity();
             }
         });
         aboutBtn.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Method that start the game activity.
     public void startGameScreenActivity(){
-        Intent intent = new Intent(this, GameScreenActivity.class);
+        Intent intent = new Intent(this, FiveLanesGameScreenActivity.class);
         startActivity(intent);
         finish();
     }
@@ -64,6 +72,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, OptionsActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    // Method that start the highscores activity.
+    public void startHighscoresActivity() {
+        Intent intent = new Intent(this, HighscoresActivity.class);
+        startActivity(intent);
+
     }
 
     // Method that start the about pop up.
@@ -117,5 +132,19 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    public void setUIVisibility(){
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        setUIVisibility();
+    }
 
 }

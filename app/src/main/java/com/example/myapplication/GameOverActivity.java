@@ -12,12 +12,14 @@ import android.widget.TextView;
 public class GameOverActivity extends AppCompatActivity {
 
     private Button playAgainBtn, menuBtn;
-    private int score;
+    private int score, numOfLanes;
     private TextView gameScore;
+    private boolean vib, tilt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setUIVisibility();
         setContentView(R.layout.activity_game_over);
 
         gameScore = findViewById(R.id.gameScore);
@@ -28,6 +30,9 @@ public class GameOverActivity extends AppCompatActivity {
         savedInstanceState = getIntent().getExtras();
         if(savedInstanceState != null){
             score = savedInstanceState.getInt("score");
+            numOfLanes = savedInstanceState.getInt("numOfLanes");
+            vib = savedInstanceState.getBoolean("vib");
+            tilt = savedInstanceState.getBoolean("tilt");
         }
         gameScore.setText(" " + score);
 
@@ -56,7 +61,14 @@ public class GameOverActivity extends AppCompatActivity {
 
     // Method that start the game activity.
     public void startGameScreenActivity(){
-        Intent intent = new Intent(this, GameScreenActivity.class);
+        Intent intent;
+        if(numOfLanes == 3){
+            intent = new Intent(this, ThreeLanesGameScreenActivity.class);
+        }else{
+            intent = new Intent(this, FiveLanesGameScreenActivity.class);
+        }
+        intent.putExtra("vib", vib);
+        intent.putExtra("tilt", tilt);
         startActivity(intent);
         finish();
     }
@@ -69,5 +81,20 @@ public class GameOverActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public void setUIVisibility(){
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        setUIVisibility();
     }
 }

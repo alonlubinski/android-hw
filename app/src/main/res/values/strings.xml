@@ -4,6 +4,7 @@
     <string name="settings_str">Settings</string>
     <string name="lanes_str">Number Of Lanes: </string>
     <string name="vibrations_str">Vibrations: </string>
+    <string name="tilt_str">Tilt: </string>
     <string name="save_str">SAVE</string>
     <string name="cancel_str">CANCEL</string>
     <string name="name">Daniel Tabaja</string>
@@ -14,7 +15,11 @@
     <string name="score_str">Score: </string>
     <string name="playagain_str">Play Again</string>
     <string name="menu_str">Menu</string>
+    <string name="highscores_str">Highscores</string>
+    <string name="back_str">Back</string>
+    <string name="reset_str">Reset</string>
     <string-array name="numOfLanes_array">
+        <item>5</item>
         <item>3</item>
     </string-array>
 </resources>

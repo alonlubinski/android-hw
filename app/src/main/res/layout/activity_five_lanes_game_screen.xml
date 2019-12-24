@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThreeLanesGameScreenActivity"
-    android:background="@drawable/asphalt_new">
+    tools:context=".FiveLanesGameScreenActivity"
+    android:background="@drawable/asphalt_fivelanes">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -74,6 +74,5 @@
             android:background="@drawable/ic_right"
             android:id="@+id/rightBtn"/>
     </RelativeLayout>
-
 
 </RelativeLayout>
