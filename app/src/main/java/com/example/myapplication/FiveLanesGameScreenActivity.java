@@ -14,6 +14,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -23,9 +24,14 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.Random;
 
@@ -55,6 +61,8 @@ public class FiveLanesGameScreenActivity extends AppCompatActivity implements Vi
         super.onCreate(savedInstanceState);
         setUIVisibility();
         setContentView(R.layout.activity_five_lanes_game_screen);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         savedInstanceState = getIntent().getExtras();
         if(savedInstanceState != null){
@@ -655,6 +663,12 @@ public class FiveLanesGameScreenActivity extends AppCompatActivity implements Vi
         ifPlaying = true;
         setUIVisibility();
         super.onResume();
+        /*
+        if(tilt == true){
+            sensorManager.registerListener(this, sensor, sensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+         */
     }
 
     @Override
@@ -667,6 +681,7 @@ public class FiveLanesGameScreenActivity extends AppCompatActivity implements Vi
     public void onPause() {
         ifPlaying = false;
         super.onPause();
+        //sensorManager.unregisterListener(this);
     }
 
     @Override

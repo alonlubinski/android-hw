@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class OptionsActivity extends AppCompatActivity {
     private Spinner spinner;
@@ -43,9 +44,11 @@ public class OptionsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b == true){
                     setVib(true);
+                    Toast.makeText(OptionsActivity.this, "Vibration: ON", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     setVib(false);
+                    Toast.makeText(OptionsActivity.this, "Vibration: OFF", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -55,9 +58,11 @@ public class OptionsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b == true){
                     setTilt(true);
+                    Toast.makeText(OptionsActivity.this, "Tilt: ON", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     setTilt(false);
+                    Toast.makeText(OptionsActivity.this, "Tilt: OFF", Toast.LENGTH_SHORT).show();
                 }
             }
         });

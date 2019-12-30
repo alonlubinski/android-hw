@@ -61,7 +61,6 @@
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:layout_marginLeft="5dp"
             android:id="@+id/vibSwitch"/>
     </LinearLayout>
@@ -85,7 +84,6 @@
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:layout_marginLeft="5dp"
             android:id="@+id/tiltSwitch"/>
     </LinearLayout>

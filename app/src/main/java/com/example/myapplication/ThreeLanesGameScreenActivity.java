@@ -23,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class ThreeLanesGameScreenActivity extends AppCompatActivity implements V
         super.onCreate(savedInstanceState);
         setUIVisibility();
         setContentView(R.layout.activity_game_screen);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         savedInstanceState = getIntent().getExtras();
         if(savedInstanceState != null){

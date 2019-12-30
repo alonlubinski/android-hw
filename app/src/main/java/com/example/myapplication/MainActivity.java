@@ -1,9 +1,16 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -11,16 +18,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+
 public class MainActivity extends AppCompatActivity {
     private Button startBtn;
     private ImageButton setBtn, highscoresBtn, aboutBtn, exitBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setUIVisibility();
         setContentView(R.layout.activity_main);
+
+
+
 
         startBtn = findViewById(R.id.startButton);
         setBtn = findViewById(R.id.settingsButton);
@@ -146,5 +161,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         setUIVisibility();
     }
+
 
 }
