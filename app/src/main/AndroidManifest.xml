@@ -17,7 +17,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="Alon" />
+            android:value="AIzaSyB-__mcmbNLKlO7yW6gVQyKN3yivPKi-d8" />
 
         <activity android:name=".FiveLanesGameScreenActivity"></activity>
         <activity android:name=".HighscoresActivity" />

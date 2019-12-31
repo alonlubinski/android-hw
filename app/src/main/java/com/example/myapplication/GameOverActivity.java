@@ -1,16 +1,27 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
+import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -28,6 +39,8 @@ public class GameOverActivity extends AppCompatActivity {
     private String name;
     private SharedPreferences sharedPreferences;
     private ArrayList<Player> highscoresList;
+    private int PERMISSION_ID = 20;
+    private FusedLocationProviderClient mFusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,8 +135,6 @@ public class GameOverActivity extends AppCompatActivity {
         player.setName(name);
         player.setScore(highscore);
 
-
-
         String jsonString = sharedPreferences.getString("list", null);
         if (jsonString != null) {
             Gson gson = new Gson();
@@ -145,13 +156,48 @@ public class GameOverActivity extends AppCompatActivity {
             editor.apply();
         } else {
             Gson gson = new Gson();
+            highscoresList.add(player);
             jsonString = gson.toJson(highscoresList);
             editor.putString("list", jsonString);
             editor.apply();
         }
 
     }
+/*
+    public void getLastLocation(){
+        if(checkPermission()){
+            if(isLocationEnabled()){
+                mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        Location location = task.getResult();
+                        if(location == null){
+                            requestNewLocationData();
+                        }
+                    }
+                });
+            } else {
+                Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        } else {
+            requestPermissions();
+        }
+    }
 
+    public void requestNewLocationData(){
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(0);
+        mLocationRequest.setFastestInterval(0);
+        mLocationRequest.setNumUpdates(1);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+    }
+
+    */
     @Override
     public void onResume() {
         super.onResume();
