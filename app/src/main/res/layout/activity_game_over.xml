@@ -51,6 +51,21 @@
             />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/scoreLayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter your name: "
+            android:textColor="@color/white"/>
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:id="@+id/nameEditText"/>
+    </LinearLayout>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

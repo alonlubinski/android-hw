@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
-public class Player {
+import android.content.Intent;
+
+public class Player implements Comparable{
     private String name;
     private int score;
     private float longitude, latitude;
 
-    public void Player(String name, int score, float longitude, float latitude){
+    public Player(String name, int score, float longitude, float latitude){
         this.name = name;
         this.score = score;
         this.longitude = longitude;
@@ -46,4 +48,9 @@ public class Player {
     }
 
 
+    @Override
+    public int compareTo(Object o) {
+        Player player = (Player) o;
+        return Integer.compare(player.getScore(), this.getScore());
+    }
 }

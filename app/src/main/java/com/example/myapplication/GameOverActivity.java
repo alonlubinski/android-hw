@@ -8,9 +8,15 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class GameOverActivity extends AppCompatActivity {
 
@@ -18,7 +24,10 @@ public class GameOverActivity extends AppCompatActivity {
     private int score, numOfLanes;
     private TextView gameScore;
     private boolean vib, tilt;
+    private EditText nameEditText;
+    private String name;
     private SharedPreferences sharedPreferences;
+    private ArrayList<Player> highscoresList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +36,17 @@ public class GameOverActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_over);
 
         sharedPreferences = getSharedPreferences("shared_preferences", MODE_PRIVATE);
+        highscoresList = new ArrayList<>();
+
 
         gameScore = findViewById(R.id.gameScore);
         playAgainBtn = findViewById(R.id.playAgainBtn);
         menuBtn = findViewById(R.id.menuBtn);
+        nameEditText = findViewById(R.id.nameEditText);
 
 
         savedInstanceState = getIntent().getExtras();
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             score = savedInstanceState.getInt("score");
             numOfLanes = savedInstanceState.getInt("numOfLanes");
             vib = savedInstanceState.getBoolean("vib");
@@ -42,7 +54,6 @@ public class GameOverActivity extends AppCompatActivity {
         }
         gameScore.setText(" " + score);
 
-        saveHighscore();
 
         playAgainBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,18 +72,22 @@ public class GameOverActivity extends AppCompatActivity {
     }
 
     // Method that start the main activity.
-    public void startMainActivity(){
+    public void startMainActivity() {
+        name = nameEditText.getText().toString();
+        saveHighscore();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
     // Method that start the game activity.
-    public void startGameScreenActivity(){
+    public void startGameScreenActivity() {
+        name = nameEditText.getText().toString();
+        saveHighscore();
         Intent intent;
-        if(numOfLanes == 3){
+        if (numOfLanes == 3) {
             intent = new Intent(this, ThreeLanesGameScreenActivity.class);
-        }else{
+        } else {
             intent = new Intent(this, FiveLanesGameScreenActivity.class);
         }
         intent.putExtra("vib", vib);
@@ -83,15 +98,15 @@ public class GameOverActivity extends AppCompatActivity {
 
     // Phone back key event.
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event){
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             startMainActivity();
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    public void setUIVisibility(){
+    public void setUIVisibility() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -100,24 +115,45 @@ public class GameOverActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
     }
 
-    private void saveHighscore(){
+    private void saveHighscore() {
         int highscore = score;
-        String name;
-
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Player player = new Player();
+        Player player = new Player("", 0, 0, 0);
+        player.setName(name);
         player.setScore(highscore);
-        //player.setName(name);
 
-        String jsonString;
-        Gson gson = new Gson();
-        jsonString = gson.toJson(player);
-        editor.putString("player", jsonString);
-        editor.apply();
+
+
+        String jsonString = sharedPreferences.getString("list", null);
+        if (jsonString != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<Player>>() {}.getType();
+            ArrayList<Player> listFromGson;
+            listFromGson = gson.fromJson(jsonString, type);
+            Collections.sort(listFromGson);
+            if(listFromGson.size() == 10){
+                if(listFromGson.get(9).getScore() < highscore){
+                    listFromGson.remove(9);
+                    listFromGson.add(player);
+                }
+            }
+            else{
+                listFromGson.add(player);
+            }
+            jsonString = gson.toJson(listFromGson);
+            editor.putString("list", jsonString);
+            editor.apply();
+        } else {
+            Gson gson = new Gson();
+            jsonString = gson.toJson(highscoresList);
+            editor.putString("list", jsonString);
+            editor.apply();
+        }
+
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         setUIVisibility();
     }
