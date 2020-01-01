@@ -5,9 +5,9 @@ import android.content.Intent;
 public class Player implements Comparable{
     private String name;
     private int score;
-    private float longitude, latitude;
+    private double longitude, latitude;
 
-    public Player(String name, int score, float longitude, float latitude){
+    public Player(String name, int score, double longitude, double latitude){
         this.name = name;
         this.score = score;
         this.longitude = longitude;
@@ -31,19 +31,19 @@ public class Player implements Comparable{
         this.score = score;
     }
 
-    public float getLongitude(){
+    public double getLongitude(){
         return this.longitude;
     }
 
-    public void setLongitude(float longitude){
+    public void setLongitude(double longitude){
         this.longitude = longitude;
     }
 
-    public float getLatitude(){
-        return this.longitude;
+    public double getLatitude(){
+        return this.latitude;
     }
 
-    public void setLatitude(float latitude){
+    public void setLatitude(double latitude){
         this.latitude = latitude;
     }
 

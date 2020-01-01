@@ -18,6 +18,7 @@
     <string name="highscores_str">Highscores</string>
     <string name="back_str">Back</string>
     <string name="reset_str">Reset</string>
+    <string name="newHS_str">New Highscore!</string>
     <string-array name="numOfLanes_array">
         <item>5</item>
         <item>3</item>

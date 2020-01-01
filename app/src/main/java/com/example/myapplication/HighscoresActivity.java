@@ -15,8 +15,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HighscoresActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -24,7 +28,7 @@ public class HighscoresActivity extends FragmentActivity implements OnMapReadyCa
     private Button resetBtn, backBtn;
     private SharedPreferences sharedPreferences;
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +63,25 @@ public class HighscoresActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(31.4117257, 35.0818155), 6));
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(32.109333, 34.855499)));
+
+        String jsonString = sharedPreferences.getString("list", null);
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<Player>>() {
+        }.getType();
+        ArrayList<Player> listFromGson;
+        listFromGson = gson.fromJson(jsonString, type);
+        if (listFromGson == null) {
+            listFromGson = new ArrayList<>();
+        }
+        Collections.sort(listFromGson);
+        for (int i = 0; i < listFromGson.size(); i++) {
+            googleMap.addMarker(new MarkerOptions().position(new LatLng(listFromGson.get(i).getLatitude(), listFromGson.get(i).getLongitude()))).setTitle((i + 1) + ". " + listFromGson.get(i).getName());
+
+
+        }
     }
 
-    public void setUIVisibility(){
+    public void setUIVisibility() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -72,7 +91,7 @@ public class HighscoresActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         setUIVisibility();
     }
