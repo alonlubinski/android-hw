@@ -116,7 +116,7 @@ public class GameOverActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         name = nameEditText.getText().toString();
         if (checkForNewHighScore()) {
-            if (name.length() > 0) {
+            if (name.trim().length() > 0) {
                 saveHighScore();
                 startActivity(intent);
                 finish();
@@ -142,7 +142,7 @@ public class GameOverActivity extends AppCompatActivity {
 
         name = nameEditText.getText().toString();
         if (checkForNewHighScore()) {
-            if (name.length() > 0) {
+            if (name.trim().length() > 0) {
                 saveHighScore();
                 startActivity(intent);
                 finish();

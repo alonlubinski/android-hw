@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     public void startOptionsActivity() {
         Intent intent = new Intent(this, OptionsActivity.class);
         startActivity(intent);
-        finish();
+
     }
 
     // Method that start the highscores activity.
@@ -111,6 +111,13 @@ public class MainActivity extends AppCompatActivity {
         builder.setView(popupView);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                setUIVisibility();
+            }
+        });
     }
 
     // Method that start the exit pop up.

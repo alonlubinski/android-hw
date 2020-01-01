@@ -25,7 +25,7 @@ import java.util.Collections;
 public class HighscoresActivity extends FragmentActivity implements OnMapReadyCallback {
 
     GoogleMap map;
-    private Button resetBtn, backBtn;
+    private Button backBtn;
     private SharedPreferences sharedPreferences;
 
 
@@ -42,20 +42,11 @@ public class HighscoresActivity extends FragmentActivity implements OnMapReadyCa
 
 
         backBtn = findViewById(R.id.backButton);
-        resetBtn = findViewById(R.id.resetButton);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
-            }
-        });
-        resetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.apply();
             }
         });
     }

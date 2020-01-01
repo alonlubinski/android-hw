@@ -54,20 +54,10 @@
         <Button
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:text="@string/reset_str"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:background="@drawable/big_button_shape"
-            android:id="@+id/resetButton"/>
-
-        <Button
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
             android:text="@string/back_str"
             android:textStyle="bold"
             android:textSize="20sp"
             android:background="@drawable/big_button_shape"
-            android:layout_marginLeft="20dp"
             android:id="@+id/backButton"/>
     </LinearLayout>
 
