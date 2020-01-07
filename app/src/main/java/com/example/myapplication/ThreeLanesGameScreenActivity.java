@@ -19,7 +19,6 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +26,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import java.util.Random;
-
 import static android.view.View.*;
 import static android.view.View.VISIBLE;
 
@@ -497,25 +494,7 @@ public class ThreeLanesGameScreenActivity extends AppCompatActivity implements V
         finish();
     }
 
-    // Method that start the main activity.
-    public void startMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    // Phone back key event.
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            startMainActivity();
-            finish();
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
-
+    // Method that set UI flags.
     public void setUIVisibility(){
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -524,7 +503,6 @@ public class ThreeLanesGameScreenActivity extends AppCompatActivity implements V
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
     }
-
 
     @Override
     public void onResume() {
@@ -545,6 +523,7 @@ public class ThreeLanesGameScreenActivity extends AppCompatActivity implements V
         super.onPause();
     }
 
+    // Method for tilt sensors.
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         double xSensor = sensorEvent.values[0];

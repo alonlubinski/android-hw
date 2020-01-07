@@ -1,12 +1,12 @@
 package com.example.myapplication;
 
-import android.content.Intent;
 
 public class Player implements Comparable{
     private String name;
     private int score;
     private double longitude, latitude;
 
+    // Constructor.
     public Player(String name, int score, double longitude, double latitude){
         this.name = name;
         this.score = score;
@@ -14,7 +14,7 @@ public class Player implements Comparable{
         this.latitude = latitude;
     }
 
-    // Getters and setters
+    // Getters and setters.
     public String getName(){
         return this.name;
     }

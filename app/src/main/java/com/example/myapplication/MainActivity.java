@@ -1,27 +1,15 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setUIVisibility();
         setContentView(R.layout.activity_main);
-
-
-
 
         startBtn = findViewById(R.id.startButton);
         setBtn = findViewById(R.id.settingsButton);
@@ -79,21 +64,18 @@ public class MainActivity extends AppCompatActivity {
     public void startGameScreenActivity(){
         Intent intent = new Intent(this, FiveLanesGameScreenActivity.class);
         startActivity(intent);
-        finish();
     }
 
     // Method that start the options activity.
     public void startOptionsActivity() {
         Intent intent = new Intent(this, OptionsActivity.class);
         startActivity(intent);
-
     }
 
     // Method that start the highscores activity.
     public void startHighscoresActivity() {
         Intent intent = new Intent(this, HighscoresActivity.class);
         startActivity(intent);
-
     }
 
     // Method that start the about pop up.
@@ -134,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                setUIVisibility();
             }
         });
         LayoutInflater layoutInflater = getLayoutInflater();
@@ -154,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    // Method that set UI flags.
     public void setUIVisibility(){
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE

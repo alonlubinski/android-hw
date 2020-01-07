@@ -3,7 +3,6 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,30 +14,25 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static java.lang.Short.MAX_VALUE;
 
 public class GameOverActivity extends AppCompatActivity {
 
@@ -113,18 +107,19 @@ public class GameOverActivity extends AppCompatActivity {
 
     // Method that start the main activity.
     public void startMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
         name = nameEditText.getText().toString();
         if (checkForNewHighScore()) {
             if (name.trim().length() > 0) {
-                saveHighScore();
-                startActivity(intent);
-                finish();
+                if(name.length() > 10){
+                    Toast.makeText(GameOverActivity.this, "The name contains too much letters!", Toast.LENGTH_SHORT).show();
+                } else {
+                    saveHighScore();
+                    finish();
+                }
             } else {
                 Toast.makeText(GameOverActivity.this, "Please enter valid name.", Toast.LENGTH_SHORT).show();
             }
         } else {
-            startActivity(intent);
             finish();
         }
     }
@@ -143,9 +138,13 @@ public class GameOverActivity extends AppCompatActivity {
         name = nameEditText.getText().toString();
         if (checkForNewHighScore()) {
             if (name.trim().length() > 0) {
-                saveHighScore();
-                startActivity(intent);
-                finish();
+                if(name.length() > 10){
+                    Toast.makeText(GameOverActivity.this, "The name contains too much letters!", Toast.LENGTH_SHORT).show();
+                } else {
+                    saveHighScore();
+                    startActivity(intent);
+                    finish();
+                }
             } else {
                 Toast.makeText(GameOverActivity.this, "Please enter valid name.", Toast.LENGTH_SHORT).show();
             }
@@ -155,16 +154,7 @@ public class GameOverActivity extends AppCompatActivity {
         }
     }
 
-    // Phone back key event.
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            startMainActivity();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
+    // Method that set UI flags.
     public void setUIVisibility() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -174,6 +164,7 @@ public class GameOverActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
     }
 
+    // Method that save the highscore.
     private void saveHighScore() {
         int highScore = score;
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -212,6 +203,7 @@ public class GameOverActivity extends AppCompatActivity {
 
     }
 
+    // Method that check if the score is a new high score.
     public boolean checkForNewHighScore() {
         int highScore = score;
         String jsonString = sharedPreferences.getString("list", null);
@@ -235,6 +227,7 @@ public class GameOverActivity extends AppCompatActivity {
         return false;
     }
 
+    // Methods that check the user location.
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
         if (checkPermissions()) {

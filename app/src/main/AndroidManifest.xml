@@ -19,10 +19,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB-__mcmbNLKlO7yW6gVQyKN3yivPKi-d8" />
 
-        <activity android:name=".FiveLanesGameScreenActivity"></activity>
+        <activity android:name=".FiveLanesGameScreenActivity"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".HighscoresActivity" />
         <activity android:name=".GameOverActivity" />
-        <activity android:name=".ThreeLanesGameScreenActivity" />
+        <activity android:name=".ThreeLanesGameScreenActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".OptionsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
