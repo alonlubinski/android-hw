@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
-                System.exit(0);
             }
         });
         builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {

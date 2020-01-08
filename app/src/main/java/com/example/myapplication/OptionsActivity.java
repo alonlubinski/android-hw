@@ -15,7 +15,6 @@ public class OptionsActivity extends AppCompatActivity {
     private Spinner spinner;
     private Button startBtn ,cancelBtn;
     private Switch vibSwitch, tiltSwitch;
-
     private boolean vib, tilt;
 
     @Override

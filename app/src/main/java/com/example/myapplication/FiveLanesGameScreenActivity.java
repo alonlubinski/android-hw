@@ -635,20 +635,38 @@ public class FiveLanesGameScreenActivity extends AppCompatActivity implements Vi
     public void onResume() {
         ifPlaying = true;
         setUIVisibility();
+        if(tilt == true){
+            sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
         super.onResume();
     }
 
     @Override
     public void onStop() {
         ifPlaying = false;
+        if(tilt == true){
+            sensorManager.unregisterListener(this, sensor);
+        }
         super.onStop();
     }
 
     @Override
     public void onPause() {
         ifPlaying = false;
+        if(tilt == true){
+            sensorManager.unregisterListener(this, sensor);
+        }
         super.onPause();
     }
+
+    @Override
+    public void onDestroy() {
+        if(tilt == true){
+            sensorManager.unregisterListener(this, sensor);
+        }
+        super.onDestroy();
+    }
+
 
     // Method for tilt sensors.
     @Override
